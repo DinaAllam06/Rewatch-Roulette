@@ -1,0 +1,9 @@
+{
+  "show": "Modern Family",
+  "color": "#8b5cf6",
+  "episodes": [
+    { "season": 1, "episode": 1, "title": "Pilot" },
+    { "season": 2, "episode": 6, "title": "Halloween" },
+    { "season": 5, "episode": 12, "title": "Under Pressure" }
+  ]
+}

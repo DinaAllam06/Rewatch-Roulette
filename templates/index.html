@@ -3,79 +3,186 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Episode Shuffle</title>
+    <title>Rewatch Roulette</title>
     <style>
+      * {
+        box-sizing: border-box;
+      }
+
       body {
-        font-family: Arial, sans-serif;
-        max-width: 800px;
-        margin: 50px auto;
-        padding: 20px;
-        background: #111827;
-        color: white;
+        margin: 0;
+        font-family: Inter, Arial, sans-serif;
+        background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+        color: #f8fafc;
+        min-height: 100vh;
       }
 
-      h1 {
-        margin-bottom: 20px;
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 48px 20px;
       }
 
-      form {
-        margin-bottom: 30px;
+      .hero {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+        margin: 0 0 12px;
+        letter-spacing: -1px;
+      }
+
+      .hero p {
+        margin: 0;
+        color: #94a3b8;
+        font-size: 1.1rem;
+      }
+
+      .card {
+        background: rgba(17, 24, 39, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.15);
+        border-radius: 24px;
+        padding: 28px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(10px);
+      }
+
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 28px;
       }
 
       select,
       button {
-        padding: 10px;
-        font-size: 16px;
-        margin-right: 10px;
-        border-radius: 8px;
         border: none;
+        border-radius: 14px;
+        padding: 14px 16px;
+        font-size: 1rem;
+      }
+
+      select {
+        flex: 1;
+        min-width: 220px;
+        background: #1e293b;
+        color: #f8fafc;
+        border: 1px solid rgba(148, 163, 184, 0.2);
       }
 
       button {
         background: #2563eb;
         color: white;
+        font-weight: 600;
         cursor: pointer;
+        transition: transform 0.15s ease, background 0.15s ease;
       }
 
       button:hover {
         background: #1d4ed8;
+        transform: translateY(-1px);
       }
 
-      .card {
-        background: #1f2937;
-        padding: 20px;
-        border-radius: 12px;
-        margin-top: 20px;
+      .episode-card {
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        border-radius: 20px;
+        padding: 28px;
+        border: 1px solid rgba(148, 163, 184, 0.15);
       }
 
-      .label {
-        color: #93c5fd;
+      .show-name {
+        font-size: 0.95rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #60a5fa;
+        margin-bottom: 10px;
+      }
+
+      .episode-title {
+        font-size: 2rem;
+        margin: 0 0 12px;
+        line-height: 1.15;
+      }
+
+      .meta {
+        color: #cbd5e1;
+        margin-bottom: 18px;
+        font-size: 1rem;
+      }
+
+      .summary {
+        color: #94a3b8;
+        line-height: 1.7;
+        font-size: 1rem;
+        margin: 0;
+      }
+
+      .footer-note {
+        text-align: center;
+        color: #64748b;
+        margin-top: 24px;
+        font-size: 0.95rem;
+      }
+
+      @media (max-width: 640px) {
+        .hero h1 {
+          font-size: 2.2rem;
+        }
+
+        .episode-title {
+          font-size: 1.5rem;
+        }
+
+        .controls {
+          flex-direction: column;
+        }
+
+        button,
+        select {
+          width: 100%;
+        }
       }
     </style>
   </head>
   <body>
-    <h1>🎲 Episode Shuffle</h1>
+    <div class="container">
+      <div class="hero">
+        <h1>🎲 Rewatch Roulette</h1>
+        <p>Stop scrolling. Let the app pick tonight’s episode.</p>
+      </div>
 
-    <form method="POST">
-      <label for="show">Choose a show:</label>
-      <select name="show" id="show" required>
-        <option value="">-- Select a show --</option>
-        {% for show in shows %}
-        <option value="{{ show.show }}">{{ show.show }}</option>
-        {% endfor %}
-      </select>
-      <button type="submit">Shuffle Episode</button>
-    </form>
+      <div class="card">
+        <form method="POST" class="controls">
+          <select name="show" id="show" required>
+            <option value="">Choose a show</option>
+            {% for show in shows %}
+            <option value="{{ show.show }}" {% if selected_show == show.show %}selected{% endif %}>
+              {{ show.show }}
+            </option>
+            {% endfor %}
+          </select>
 
-    {% if selected_episode %}
-    <div class="card">
-      <h2>{{ selected_show }}</h2>
-      <p class="label">
-        Season {{ selected_episode.season }}, Episode {{ selected_episode.episode }}
-      </p>
-      <h3>{{ selected_episode.title }}</h3>
-      <p>{{ selected_episode.summary }}</p>
+          <button type="submit">Shuffle Episode</button>
+        </form>
+
+        {% if selected_episode %}
+        <div class="episode-card">
+          <div class="show-name">{{ selected_show }}</div>
+          <h2 class="episode-title">{{ selected_episode.title }}</h2>
+          <div class="meta">
+            Season {{ selected_episode.season }} • Episode {{ selected_episode.episode }}
+          </div>
+          <p class="summary">{{ selected_episode.summary }}</p>
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="footer-note">
+        Built with Python + Flask
+      </div>
     </div>
-    {% endif %}
   </body>
 </html>

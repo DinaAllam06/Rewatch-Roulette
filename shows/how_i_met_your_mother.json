@@ -1,0 +1,9 @@
+{
+  "show": "How I Met Your Mother",
+  "color": "#14b8a6",
+  "episodes": [
+    { "season": 1, "episode": 1, "title": "Pilot" },
+    { "season": 2, "episode": 9, "title": "Slap Bet" },
+    { "season": 4, "episode": 9, "title": "The Naked Man" }
+  ]
+}

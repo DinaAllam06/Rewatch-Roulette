@@ -1,28 +1,29 @@
 from flask import Flask, render_template, request
 import json
+import os
 import random
 
 app = Flask(__name__)
 
-
-import os
-import json
 
 def load_shows():
     shows = []
 
     for filename in os.listdir("shows"):
         if filename.endswith(".json"):
-            with open(f"shows/{filename}", "r") as file:
+            path = os.path.join("shows", filename)
+            with open(path, "r") as file:
                 shows.append(json.load(file))
 
     return shows
+
 
 @app.route("/", methods=["GET", "POST"])
 def home():
     shows = load_shows()
     selected_show = None
     selected_episode = None
+    selected_color = "#2563eb"
 
     if request.method == "POST":
         show_name = request.form.get("show")
@@ -31,6 +32,7 @@ def home():
             if show["show"] == show_name:
                 selected_show = show_name
                 selected_episode = random.choice(show["episodes"])
+                selected_color = show.get("color", "#2563eb")
                 break
 
     return render_template(
@@ -38,8 +40,5 @@ def home():
         shows=shows,
         selected_show=selected_show,
         selected_episode=selected_episode,
+        selected_color=selected_color,
     )
-
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)

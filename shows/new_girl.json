@@ -1,0 +1,9 @@
+{
+  "show": "New Girl",
+  "color": "#ec4899",
+  "episodes": [
+    { "season": 1, "episode": 1, "title": "Pilot" },
+    { "season": 2, "episode": 15, "title": "Cooler" },
+    { "season": 4, "episode": 6, "title": "Background Check" }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "show": "Community",
+  "color": "#dc2626",
+  "episodes": [
+    { "season": 1, "episode": 1, "title": "Pilot" },
+    { "season": 1, "episode": 21, "title": "Contemporary American Poultry" },
+    { "season": 2, "episode": 14, "title": "Advanced Dungeons & Dragons" }
+  ]
+}
