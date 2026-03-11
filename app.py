@@ -1,68 +1,45 @@
+from flask import Flask, render_template, request
 import json
 import random
 
-
-def load_shows(filename="shows.json"):
-    with open(filename, "r") as file:
-        return json.load(file)
+app = Flask(__name__)
 
 
-def get_unwatched_episodes(show_data):
-    return [episode for episode in show_data["episodes"] if not episode["watched"]]
+import os
+import json
 
+def load_shows():
+    shows = []
 
-def shuffle_episode(show_data):
-    unwatched = get_unwatched_episodes(show_data)
+    for filename in os.listdir("shows"):
+        if filename.endswith(".json"):
+            with open(f"shows/{filename}", "r") as file:
+                shows.append(json.load(file))
 
-    if not unwatched:
-        print("No unwatched episodes left!")
-        return
+    return shows
 
-    episode = random.choice(unwatched)
+@app.route("/", methods=["GET", "POST"])
+def home():
+    shows = load_shows()
+    selected_show = None
+    selected_episode = None
 
-    print("\nYour recommended episode:")
-    print(f'Show: {show_data["show"]}')
-    print(f'Season {episode["season"]}, Episode {episode["episode"]}')
-    print(f'Title: {episode["title"]}')
-    print(f'Summary: {episode["summary"]}')
+    if request.method == "POST":
+        show_name = request.form.get("show")
 
+        for show in shows:
+            if show["show"] == show_name:
+                selected_show = show_name
+                selected_episode = random.choice(show["episodes"])
+                break
 
-def mark_episode_watched(show_data, season_num, episode_num):
-    for episode in show_data["episodes"]:
-        if episode["season"] == season_num and episode["episode"] == episode_num:
-            episode["watched"] = True
-            return True
-    return False
-
-
-def save_shows(data, filename="shows.json"):
-    with open(filename, "w") as file:
-        json.dump(data, file, indent=2)
-
-
-def main():
-    data = load_shows()
-
-    print("Available shows:")
-    for i, show in enumerate(data, start=1):
-        print(f"{i}. {show['show']}")
-
-    choice = int(input("\nPick a show number: ")) - 1
-    selected_show = data[choice]
-
-    shuffle_episode(selected_show)
-
-    mark = input("\nDo you want to mark an episode as watched? (yes/no): ").strip().lower()
-    if mark == "yes":
-        season = int(input("Season number: "))
-        episode = int(input("Episode number: "))
-
-        if mark_episode_watched(selected_show, season, episode):
-            save_shows(data)
-            print("Episode marked as watched.")
-        else:
-            print("Episode not found.")
+    return render_template(
+        "index.html",
+        shows=shows,
+        selected_show=selected_show,
+        selected_episode=selected_episode,
+    )
 
 
 if __name__ == "__main__":
-    main()
+    app.run(host="0.0.0.0", port=5000, debug=True)

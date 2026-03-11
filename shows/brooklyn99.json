@@ -1,0 +1,35 @@
+{
+  "show": "Brooklyn Nine-Nine",
+  "episodes": [
+    {
+      "season": 1,
+      "episode": 1,
+      "title": "Pilot",
+      "summary": "Jake Peralta adjusts to the arrival of Captain Holt."
+    },
+    {
+      "season": 1,
+      "episode": 6,
+      "title": "Halloween",
+      "summary": "Jake and Holt make a bet over who is the better detective."
+    },
+    {
+      "season": 2,
+      "episode": 4,
+      "title": "Halloween II",
+      "summary": "The annual Halloween heist returns with higher stakes."
+    },
+    {
+      "season": 3,
+      "episode": 5,
+      "title": "Halloween III",
+      "summary": "The precinct competes in another increasingly chaotic heist."
+    },
+    {
+      "season": 5,
+      "episode": 4,
+      "title": "HalloVeen",
+      "summary": "Jake plans a very important surprise during the Halloween heist."
+    }
+  ]
+}

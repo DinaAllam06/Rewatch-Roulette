@@ -1,0 +1,35 @@
+{
+  "show": "The Office",
+  "episodes": [
+    {
+      "season": 2,
+      "episode": 1,
+      "title": "The Dundies",
+      "summary": "Michael hosts the annual Dundies awards."
+    },
+    {
+      "season": 2,
+      "episode": 2,
+      "title": "Sexual Harassment",
+      "summary": "The office gets a new policy on workplace behavior."
+    },
+    {
+      "season": 2,
+      "episode": 3,
+      "title": "Office Olympics",
+      "summary": "The staff creates games while Michael closes on his condo."
+    },
+    {
+      "season": 2,
+      "episode": 12,
+      "title": "The Injury",
+      "summary": "Michael injures his foot and expects sympathy from the office."
+    },
+    {
+      "season": 3,
+      "episode": 14,
+      "title": "Ben Franklin",
+      "summary": "The office throws a bachelorette party and hires a Ben Franklin impersonator."
+    }
+  ]
+}

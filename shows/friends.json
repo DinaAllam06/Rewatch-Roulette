@@ -1,0 +1,35 @@
+{
+  "show": "Friends",
+  "episodes": [
+    {
+      "season": 1,
+      "episode": 1,
+      "title": "The One Where Monica Gets a Roommate",
+      "summary": "Rachel arrives unexpectedly and becomes Monica's roommate."
+    },
+    {
+      "season": 1,
+      "episode": 2,
+      "title": "The One with the Sonogram at the End",
+      "summary": "Ross deals with his ex-wife's pregnancy."
+    },
+    {
+      "season": 2,
+      "episode": 7,
+      "title": "The One Where Ross Finds Out",
+      "summary": "Ross learns about Rachel's feelings for him."
+    },
+    {
+      "season": 4,
+      "episode": 12,
+      "title": "The One with the Embryos",
+      "summary": "The friends play a trivia game to see who knows each other best."
+    },
+    {
+      "season": 5,
+      "episode": 14,
+      "title": "The One Where Everybody Finds Out",
+      "summary": "The group discovers Monica and Chandler's secret relationship."
+    }
+  ]
+}

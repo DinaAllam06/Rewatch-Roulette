@@ -1,0 +1,35 @@
+{
+  "show": "Parks and Recreation",
+  "episodes": [
+    {
+      "season": 2,
+      "episode": 23,
+      "title": "The Master Plan",
+      "summary": "Leslie considers a major new opportunity while Ann's relationship changes."
+    },
+    {
+      "season": 3,
+      "episode": 2,
+      "title": "Flu Season",
+      "summary": "Leslie tries to push through the flu to present an important project."
+    },
+    {
+      "season": 3,
+      "episode": 16,
+      "title": "Li'l Sebastian",
+      "summary": "The town gathers to honor a beloved miniature horse."
+    },
+    {
+      "season": 4,
+      "episode": 10,
+      "title": "Citizen Knope",
+      "summary": "Leslie deals with campaign fallout and the team rallies around her."
+    },
+    {
+      "season": 6,
+      "episode": 8,
+      "title": "Flu Season 2",
+      "summary": "A second flu outbreak causes chaos during an important event."
+    }
+  ]
+}

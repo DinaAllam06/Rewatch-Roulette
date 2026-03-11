@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Episode Shuffle</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #111827;
+        color: white;
+      }
+
+      h1 {
+        margin-bottom: 20px;
+      }
+
+      form {
+        margin-bottom: 30px;
+      }
+
+      select,
+      button {
+        padding: 10px;
+        font-size: 16px;
+        margin-right: 10px;
+        border-radius: 8px;
+        border: none;
+      }
+
+      button {
+        background: #2563eb;
+        color: white;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #1d4ed8;
+      }
+
+      .card {
+        background: #1f2937;
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 20px;
+      }
+
+      .label {
+        color: #93c5fd;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🎲 Episode Shuffle</h1>
+
+    <form method="POST">
+      <label for="show">Choose a show:</label>
+      <select name="show" id="show" required>
+        <option value="">-- Select a show --</option>
+        {% for show in shows %}
+        <option value="{{ show.show }}">{{ show.show }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit">Shuffle Episode</button>
+    </form>
+
+    {% if selected_episode %}
+    <div class="card">
+      <h2>{{ selected_show }}</h2>
+      <p class="label">
+        Season {{ selected_episode.season }}, Episode {{ selected_episode.episode }}
+      </p>
+      <h3>{{ selected_episode.title }}</h3>
+      <p>{{ selected_episode.summary }}</p>
+    </div>
+    {% endif %}
+  </body>
+</html>
