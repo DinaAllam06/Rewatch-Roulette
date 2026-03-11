@@ -12,40 +12,40 @@
       body {
         margin: 0;
         font-family: Inter, Arial, sans-serif;
-        background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+        background: radial-gradient(circle at top, #1e293b 0%, #0f172a 55%, #020617 100%);
         color: #f8fafc;
         min-height: 100vh;
       }
 
       .container {
-        max-width: 900px;
+        max-width: 980px;
         margin: 0 auto;
-        padding: 48px 20px;
+        padding: 48px 20px 70px;
       }
 
       .hero {
         text-align: center;
-        margin-bottom: 40px;
+        margin-bottom: 36px;
       }
 
       .hero h1 {
         font-size: 3rem;
-        margin: 0 0 12px;
+        margin: 0 0 10px;
         letter-spacing: -1px;
       }
 
       .hero p {
         margin: 0;
         color: #94a3b8;
-        font-size: 1.1rem;
+        font-size: 1.05rem;
       }
 
-      .card {
-        background: rgba(17, 24, 39, 0.9);
-        border: 1px solid rgba(148, 163, 184, 0.15);
+      .shell {
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(148, 163, 184, 0.12);
         border-radius: 24px;
-        padding: 28px;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+        padding: 24px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
         backdrop-filter: blur(10px);
       }
 
@@ -53,7 +53,7 @@
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
-        margin-bottom: 28px;
+        margin-bottom: 24px;
       }
 
       select,
@@ -67,63 +67,83 @@
       select {
         flex: 1;
         min-width: 220px;
-        background: #1e293b;
+        background: #111827;
         color: #f8fafc;
-        border: 1px solid rgba(148, 163, 184, 0.2);
+        border: 1px solid rgba(148, 163, 184, 0.18);
       }
 
       button {
         background: #2563eb;
         color: white;
-        font-weight: 600;
+        font-weight: 700;
         cursor: pointer;
-        transition: transform 0.15s ease, background 0.15s ease;
+        transition: transform 0.15s ease, opacity 0.15s ease;
       }
 
       button:hover {
-        background: #1d4ed8;
         transform: translateY(-1px);
+        opacity: 0.95;
       }
 
       .episode-card {
-        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-        border-radius: 20px;
-        padding: 28px;
-        border: 1px solid rgba(148, 163, 184, 0.15);
+        border-radius: 24px;
+        padding: 32px;
+        min-height: 260px;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        background:
+          linear-gradient(135deg, {{ selected_color }} 0%, rgba(15,23,42,0.95) 65%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .badge {
+        display: inline-block;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 700;
+        margin-bottom: 14px;
+        color: rgba(255,255,255,0.85);
       }
 
       .show-name {
-        font-size: 0.95rem;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: #60a5fa;
-        margin-bottom: 10px;
+        font-size: 1rem;
+        color: rgba(255,255,255,0.85);
+        margin-bottom: 8px;
       }
 
       .episode-title {
-        font-size: 2rem;
+        font-size: 2.2rem;
+        line-height: 1.1;
         margin: 0 0 12px;
-        line-height: 1.15;
       }
 
       .meta {
-        color: #cbd5e1;
-        margin-bottom: 18px;
         font-size: 1rem;
+        color: rgba(255,255,255,0.82);
+        margin-bottom: 14px;
       }
 
       .summary {
-        color: #94a3b8;
-        line-height: 1.7;
-        font-size: 1rem;
         margin: 0;
+        line-height: 1.7;
+        color: rgba(255,255,255,0.88);
+        max-width: 700px;
+      }
+
+      .empty {
+        border: 1px dashed rgba(148, 163, 184, 0.2);
+        border-radius: 20px;
+        padding: 28px;
+        text-align: center;
+        color: #94a3b8;
       }
 
       .footer-note {
         text-align: center;
         color: #64748b;
-        margin-top: 24px;
+        margin-top: 22px;
         font-size: 0.95rem;
       }
 
@@ -133,7 +153,7 @@
         }
 
         .episode-title {
-          font-size: 1.5rem;
+          font-size: 1.6rem;
         }
 
         .controls {
@@ -144,6 +164,10 @@
         select {
           width: 100%;
         }
+
+        .episode-card {
+          padding: 24px;
+        }
       }
     </style>
   </head>
@@ -151,10 +175,10 @@
     <div class="container">
       <div class="hero">
         <h1>🎲 Rewatch Roulette</h1>
-        <p>Stop scrolling. Let the app pick tonight’s episode.</p>
+        <p>Pick a show and let the app decide tonight’s episode.</p>
       </div>
 
-      <div class="card">
+      <div class="shell">
         <form method="POST" class="controls">
           <select name="show" id="show" required>
             <option value="">Choose a show</option>
@@ -170,12 +194,17 @@
 
         {% if selected_episode %}
         <div class="episode-card">
+          <div class="badge">Tonight's Pick</div>
           <div class="show-name">{{ selected_show }}</div>
           <h2 class="episode-title">{{ selected_episode.title }}</h2>
           <div class="meta">
             Season {{ selected_episode.season }} • Episode {{ selected_episode.episode }}
           </div>
           <p class="summary">{{ selected_episode.summary }}</p>
+        </div>
+        {% else %}
+        <div class="empty">
+          Choose a show and click <strong>Shuffle Episode</strong> to get a recommendation.
         </div>
         {% endif %}
       </div>
